@@ -294,7 +294,6 @@ def logout():
 
     # remove admin session
     session.pop('admin', None)
-
     return redirect('/login')
 
 
