@@ -1,0 +1,13 @@
+<h2>Feedback List</h2>
+
+<table border="1">
+<tr><th>ID</th><th>Name</th><th>Message</th></tr>
+
+{% for f in data %}
+<tr>
+<td>{{f[0]}}</td>
+<td>{{f[1]}}</td>
+<td>{{f[2]}}</td>
+</tr>
+{% endfor %}
+</table>

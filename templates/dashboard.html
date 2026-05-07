@@ -8,6 +8,9 @@
 
     <a href="/vehicle_reg" class="btn btn-success">Vehicle Registration</a>
     <a href="/vehicle_list" class="btn btn-secondary">View Vehicles</a>
+    <a href="/feedback" class="btn btn-info">Feedback</a>
+    <a href="/complaint" class="btn btn-warning">Complaint</a>
+    <a href="/logout" class="btn btn-danger">Logout</a>
 
 </head>
 
@@ -136,6 +139,71 @@ function updateDashboard() {
 
 setInterval(updateDashboard, 5000);
 </script>
+<div id="chatbox" style="
+position:fixed;
+bottom:20px;
+right:20px;
+width:320px;
+background:linear-gradient(135deg,#667eea,#764ba2);
+color:white;
+border-radius:15px;
+padding:10px;
+box-shadow:0 5px 20px rgba(0,0,0,0.3);
+">
 
+    <h4 style="text-align:center;">💬 Help Chat</h4>
+
+    <div id="messages" style="
+        height:200px;
+        overflow-y:auto;
+        background:white;
+        color:black;
+        border-radius:10px;
+        padding:5px;
+        margin-bottom:10px;
+    "></div>
+
+    <input type="text" id="userInput" placeholder="Type message..." 
+    style="width:70%; padding:5px; border-radius:5px; border:none;">
+
+    <button onclick="sendMessage()" 
+    style="padding:5px 10px; border:none; border-radius:5px; background:#28a745; color:white;">
+    Send
+    </button>
+
+</div>
+
+<script>
+function sendMessage() {
+    let input = document.getElementById("userInput");
+    let msg = input.value;
+
+    if (msg.trim() === "") return;
+
+    let messages = document.getElementById("messages");
+
+    // Show user message
+    messages.innerHTML += "<p><b>You:</b> " + msg + "</p>";
+
+    fetch('/chat', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ message: msg })
+    })
+    .then(response => response.json())
+    .then(data => {
+        messages.innerHTML += "<p><b>Bot:</b> " + data.reply + "</p>";
+        messages.scrollTop = messages.scrollHeight;
+    })
+    .catch(error => {
+        messages.innerHTML += "<p style='color:red;'>Error connecting to server</p>";
+        console.error(error);
+    });
+
+    input.value = "";
+}
+</script>
 </body>
 </html>

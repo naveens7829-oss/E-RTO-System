@@ -11,6 +11,7 @@
             <th>Age</th>
             <th>Status</th>
             <th>Action</th>
+            <th>User</th>
         </tr>
 
         {% for row in data %}
@@ -22,9 +23,36 @@
             <td>
                 <a class="btn btn-success btn-sm" href="/update/{{row[0]}}/Approved">Approve</a>
                 <a class="btn btn-danger btn-sm" href="/update/{{row[0]}}/Rejected">Reject</a>
+                <a href="/view_feedback" class="btn btn-info btn-sm">View Feedback</a>
+                <a href="/view_complaints" class="btn btn-warning btn-sm ">View Complaints</a>
+                <a href="/logout" class="btn btn-danger">Logout</a>
             </td>
         </tr>
         {% endfor %}
 
     </table>
 </div>
+<table border="1">
+<tr>
+<th>ID</th>
+<th>Name</th>
+<th>Age</th>
+<th>Document</th>
+<th>Status</th>
+</tr>
+
+{% for d in data %}
+<tr>
+<td>{{d[0]}}</td>
+<td>{{d[1]}}</td>
+<td>{{d[2]}}</td>
+<td>{{d[3]}}</td>
+<td>{{d[4]}}</td>
+
+<td>
+<a href="/update/{{d[0]}}/Approved">Approve</a>
+<a href="/update/{{d[0]}}/Rejected">Reject</a>
+</td>
+</tr>
+{% endfor %}
+</table>
